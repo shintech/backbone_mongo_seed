@@ -14,12 +14,16 @@ var time = {
   },
   hour: function(d){
     var hours = d.getHours();
-    if (hours < 10 && hours > 0){
-      return "0" + hours;
-    } else if(hours === 0){
-      return 12;
+    if(hours === 0){
+      hours = 12;
+    } 
+    if (hours > 12){
+      hours = hours - 12;
+    }
+    if (hours < 10){
+      return "0" + hours
     } else {
-      return hours;
+      return hours
     }
   },
   minute: function(d){
