@@ -1,14 +1,13 @@
 var express = require("express");
 var app = express();
-var path = require("path")
+var path = require("path");
 var bodyParser = require("body-parser");
+var morgan = require("morgan");
 var config = require("./_config");
-// var session = require("express-session");
-// var RedisStore = require("connect-redis")(session);
 var routes = require("./routes");
 var port = process.env.PORT || '8000';
-
 var mongoose = require('mongoose');
+
 mongoose.Promise = require('bluebird');
 
 var environment = process.env.NODE_ENV || 'development';
@@ -22,17 +21,12 @@ mongoose.connect(connectionString, function(err, res){
   }
 });
 
+if (process.env.NODE_ENV === 'development'){
+  app.use(morgan('dev'));
+}
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// app.use(session({
-//   store: new RedisStore({
-//     url: config.redisStore.url
-//   }),
-//   secret: config.redisStore.secret,
-//   resave: false,
-//   saveUninitialized: false
-// }));
 
 app.use(express.static(path.join(__dirname, 'app/static')));
 
