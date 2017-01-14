@@ -8,7 +8,10 @@ chai.use(chaiHttp);
 
 describe('Models', function(){
   
-  Model.collection.drop();
+  before(function(done){
+    Model.collection.drop();
+    done();
+  });
   
   beforeEach(function(done){
     var newModel = new Model({
@@ -51,6 +54,7 @@ describe('Models', function(){
         expect(res.body).to.have.a.property('_id');
         expect(res.body).to.have.a.property('name');
         expect(res.body._id).to.equal(data.id);
+        expect(res.body.name).to.equal(data.name)
         done();
       });
     });
