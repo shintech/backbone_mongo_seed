@@ -1,7 +1,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server');
-var should = chai.should();
+var expect = chai.expect;
 var Model = require('../db').model;
 
 chai.use(chaiHttp);
@@ -28,11 +28,11 @@ describe('Models', function(){
     chai.request(server)
     .get('/api/models')
     .end(function(err, res){
-      res.should.have.status(200);
-      res.should.be.json;
-      res.body.should.be.a('array');
-      res.body[0].should.have.property('_id');
-      res.body[0].should.have.property('name');
+      expect(res).to.have.status(200);
+      expect(res).to.be.json;
+      expect(res.body).to.be.a('array');
+      expect(res.body[0]).to.have.property('_id');
+      expect(res.body[0]).to.have.property('name');
       done();
     });
   });
@@ -45,12 +45,12 @@ describe('Models', function(){
       chai.request(server)
       .get('/api/models/' + data.id)
       .end(function(err, res){
-        res.should.have.status(200);
-        res.should.be.json;
-        res.body.should.be.a('object');
-        res.body.should.have.a.property('_id');
-        res.body.should.have.a.property('name');
-        res.body._id.should.equal(data.id);
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('object');
+        expect(res.body).to.have.a.property('_id');
+        expect(res.body).to.have.a.property('name');
+        expect(res.body._id).to.equal(data.id);
         done();
       });
     });
@@ -61,13 +61,13 @@ describe('Models', function(){
     .post('/api/models')
     .send({"name": "giant douche"})
     .end(function(err, res){
-      res.should.have.status(200);
-      res.should.be.json;
-      res.body.should.be.a('object');
-      res.body.should.have.property("success");
-      res.body.success.should.be.a('object');
-      res.body.success.should.have.property('name');
-      res.body.success.name.should.equal("giant douche");
+      expect(res).to.have.status(200);
+      expect(res).to.be.json;
+      expect(res.body).to.be.a('object');
+      expect(res.body).to.have.property("success");
+      expect(res.body.success).to.be.a('object');
+      expect(res.body.success).to.have.property('name');
+      expect(res.body.success.name).to.equal("giant douche");
       done();
     });
   });
@@ -80,14 +80,14 @@ describe('Models', function(){
       .put('/api/models/' + res.body[0]._id)
       .send({"name": "turd sandwich"})
       .end(function(error, response){
-        response.should.have.status(200);
-        response.should.be.json;
-        response.body.should.be.a('object');
-        response.body.should.have.property('updated');
-        response.body.updated.should.be.a('object');
-        response.body.updated.should.have.property('name');
-        response.body.updated.should.have.property('_id');
-        response.body.updated.name.should.equal('turd sandwich');
+        expect(response).to.have.status(200);
+        expect(response).to.be.json;
+        expect(response.body).to.be.a('object');
+        expect(response.body).to.have.property('updated');
+        expect(response.body.updated).to.be.a('object');
+        expect(response.body.updated).to.have.property('name');
+        expect(response.body.updated).to.have.property('_id');
+        expect(response.body.updated.name).to.equal('turd sandwich');
         done();
       });
     });
@@ -100,11 +100,11 @@ describe('Models', function(){
       chai.request(server)
       .delete("/api/models/" + res.body[0]._id)
       .end(function(error, response){
-        response.should.have.status(200);
-        response.should.be.json;
-        response.body.should.be.a('object');
-        response.body.should.have.property('removed');
-        response.body.removed.should.be.a('object');
+        expect(response).to.have.status(200);
+        expect(response).to.be.json;
+        expect(response.body).to.be.a('object');
+        expect(response.body).to.have.property('removed');
+        expect(response.body.removed).to.be.a('object');
         done();
       });
     });
