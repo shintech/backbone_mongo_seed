@@ -2,7 +2,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server');
 var should = chai.should();
-var Model = require('../db/models/Model');
+var Model = require('../db').model;
 
 chai.use(chaiHttp);
 

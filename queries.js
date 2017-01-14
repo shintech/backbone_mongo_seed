@@ -1,4 +1,4 @@
-var Model = require("./db/models/Model");
+var Model = require("./db").model;
 
 function getAllModels(req, res){
   Model.find(function(err, model){
